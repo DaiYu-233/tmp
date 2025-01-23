@@ -1,0 +1,69 @@
+<Window
+    DragDrop.AllowDrop="True"
+    FontFamily="{DynamicResource Font}"
+    FontWeight="{DynamicResource FontWeight}"
+    IsHitTestVisible="True"
+    MinHeight="310"
+    MinWidth="450"
+    SystemDecorations="Full"
+    Title="Yu Minecraft Launcher"
+    WindowStartupLocation="CenterScreen"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="YMCL.Views.Main.MainWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:main="clr-namespace:YMCL.Views.Main"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:u="https://irihi.tech/ursa"
+    xmlns:uc="clr-namespace:YMCL.Public.Controls"
+    xmlns:ui="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+    xmlns:views="clr-namespace:YMCL.Views"
+    xmlns:vm="using:YMCL.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Window.Styles>
+        <Style Selector="Window">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <SolidColorBrush Color="White" Opacity="0" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Styles>
+    <Border
+        Background="{DynamicResource 1x}"
+        ClipToBounds="True"
+        CornerRadius="0,0,8,8"
+        x:Name="Root">
+        <Grid>
+            <DockPanel>
+                <uc:TitleBar
+                    DockPanel.Dock="Top"
+                    IsCloseBtnExitApp="True"
+                    IsCloseBtnShow="True"
+                    IsMaxBtnShow="True"
+                    IsVisible="False"
+                    Name="TitleBar"
+                    Title="" />
+                <main:MainView Name="View" />
+            </DockPanel>
+            <DockPanel Name="TitleRoot">
+                <Image
+                    Height="20"
+                    Margin="10,6,2,0"
+                    Source="/Public/Assets/TitleBar-Icon.png"
+                    VerticalAlignment="Top"
+                    Width="20" />
+                <TextBlock
+                    FontFamily="{DynamicResource Font}"
+                    FontSize="16"
+                    HorizontalAlignment="Left"
+                    Margin="0,5,0,0"
+                    Text=" Yu Minecraft Launcher"
+                    VerticalAlignment="Top"
+                    x:Name="TitleText" />
+            </DockPanel>
+        </Grid>
+    </Border>
+</Window>
