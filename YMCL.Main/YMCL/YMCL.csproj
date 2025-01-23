@@ -145,8 +145,4 @@
   <ItemGroup>
     <Folder Include="Public\Module\IO\Network\Minecraft\" />
   </ItemGroup>
-
-  <ItemGroup>
-    <PackageVersion Update="Avalonia.Markup.Xaml.Loader" Version="11.2.3" />
-  </ItemGroup>
 </Project>
