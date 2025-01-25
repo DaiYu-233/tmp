@@ -80,13 +80,13 @@ jobs:
           mv ./bin/Release/net8.0/win-arm64/publish/YMCL.Desktop.exe ./bin/Release/net8.0/win-arm64/publish/YMCL.Desktop.win7.arm64.exe
           cd ./bin/Release/net8.0/
           cd ./win-x86/
-          zip -9 -r "../../YMCL.Desktop.win7.x86.zip" "./publish"
-          cd ../../
+          zip -9 -r "../YMCL.Desktop.win7.x86.zip" "./publish"
+          cd ../
           cd ./win-x64/
-          zip -9 -r "../../YMCL.Desktop.win7.x64.zip" "./publish"
-          cd ../../
+          zip -9 -r "../YMCL.Desktop.win7.x64.zip" "./publish"
+          cd ../
           cd ./win-arm64/
-          zip -9 -r "../../YMCL.Desktop.win7.arm64.zip" "./publish"
+          zip -9 -r "../YMCL.Desktop.win7.arm64.zip" "./publish"
       - name: UploadArtifacts
         uses: actions/upload-artifact@v4
         with:
