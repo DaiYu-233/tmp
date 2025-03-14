@@ -1,0 +1,101 @@
+﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="YMCL.Views.Main.Pages.LaunchPages.SubPages.OverView"
+    x:DataType="viewModels:GameSettingModel"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:properties="clr-namespace:YMCL.Public.Langs"
+    xmlns:viewModels="clr-namespace:YMCL.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Border
+        ClipToBounds="True"
+        CornerRadius="{DynamicResource MainCornerRadius}"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch">
+        <StackPanel Spacing="10">
+            <Border
+                Background="{DynamicResource 1x}"
+                ClipToBounds="True"
+                CornerRadius="{DynamicResource MainCornerRadius}"
+                Padding="10">
+                <StackPanel Orientation="Horizontal">
+                    <Border
+                        ClipToBounds="True"
+                        CornerRadius="{DynamicResource MainCornerRadius}"
+                        DockPanel.Dock="Left"
+                        Height="38"
+                        Margin="5,0,5,0"
+                        VerticalAlignment="Center"
+                        Width="38">
+                        <Image Source="{Binding Icon}" />
+                    </Border>
+                    <StackPanel Margin="2,0,0,0" VerticalAlignment="Center">
+                        <TextBlock FontFamily="{DynamicResource Font}" Text="{Binding MinecraftEntry.Id}" />
+                        <TextBlock
+                            FontFamily="{DynamicResource Font}"
+                            FontSize="12"
+                            Foreground="{DynamicResource GrayColor}">
+                            <Run Text="{Binding MinecraftEntry.Version.Type}" />
+                            <Run Text="{Binding MinecraftEntry.Version.VersionId}" />
+                            <Run Text="," />
+                            <Run Text="{Binding LoaderType}" />
+                        </TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            <Border
+                Background="{DynamicResource 1x}"
+                ClipToBounds="True"
+                CornerRadius="{DynamicResource MainCornerRadius}"
+                Padding="10">
+                <WrapPanel>
+                    <Button
+                        Click="OpenVersionFolder"
+                        Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.VersionFolder}"
+                        FontFamily="{DynamicResource Font}"
+                        FontSize="13"
+                        Margin="0,0,5,0"
+                        Tag="" />
+                    <Button
+                        Click="OpenVersionFolder"
+                        Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.SavesFolder}"
+                        FontFamily="{DynamicResource Font}"
+                        FontSize="13"
+                        Margin="5,0,5,0"
+                        Tag="saves" />
+                    <Button
+                        Click="OpenVersionFolder"
+                        Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ModsFolder}"
+                        FontFamily="{DynamicResource Font}"
+                        FontSize="13"
+                        Margin="5,0,5,0"
+                        Tag="mods" />
+                    <Button
+                        Click="OpenVersionFolder"
+                        Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ResourcePacksFolder}"
+                        FontFamily="{DynamicResource Font}"
+                        FontSize="13"
+                        Margin="5,0,5,0"
+                        Tag="resourcepacks" />
+                    <Button
+                        Click="OpenVersionFolder"
+                        Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ShaderPacksFolder}"
+                        FontFamily="{DynamicResource Font}"
+                        FontSize="13"
+                        Margin="5,0,5,0"
+                        Tag="shaderpacks" />
+                    <Button
+                        Click="OpenVersionFolder"
+                        Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ScreenshotsFolder}"
+                        FontFamily="{DynamicResource Font}"
+                        FontSize="13"
+                        Margin="5,0,5,0"
+                        Tag="screenshots" />
+                </WrapPanel>
+            </Border>
+        </StackPanel>
+    </Border>
+</UserControl>

@@ -1,0 +1,56 @@
+﻿<u:UrsaWindow
+    FontFamily="{DynamicResource Font}"
+    FontWeight="{DynamicResource FontWeight}"
+    Height="450"
+    IsCloseButtonVisible="False"
+    IsFullScreenButtonVisible="False"
+    IsHitTestVisible="True"
+    IsMinimizeButtonVisible="False"
+    IsRestoreButtonVisible="False"
+    IsTitleBarVisible="False"
+    IsVisible="True"
+    SystemDecorations="Full"
+    Title="Yu Minecraft Launcher"
+    Width="860"
+    WindowStartupLocation="CenterScreen"
+    d:DesignHeight="0"
+    d:DesignWidth="0"
+    mc:Ignorable="d"
+    x:Class="YMCL.Views.Initialize.InitializeWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:init="clr-namespace:YMCL.Views.Initialize"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:u="https://irihi.tech/ursa"
+    xmlns:uc="clr-namespace:YMCL.Public.Controls"
+    xmlns:ui="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Window.Styles>
+        <Style Selector="Window">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <SolidColorBrush Color="#00ACFF00" Opacity="0" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Styles>
+    <Border
+        Background="{DynamicResource 1x}"
+        ClipToBounds="True"
+        CornerRadius="8"
+        x:Name="Root">
+        <Grid>
+            <DockPanel>
+                <uc:TitleBar
+                    DockPanel.Dock="Top"
+                    IsCloseBtnExitApp="True"
+                    IsCloseBtnShow="True"
+                    IsMaxBtnShow="False"
+                    IsVisible="False"
+                    Name="TitleBar"
+                    Title="Yu Minecraft Launcher" />
+                <init:InitializeView Name="InitializeView" />
+            </DockPanel>
+        </Grid>
+    </Border>
+</u:UrsaWindow>

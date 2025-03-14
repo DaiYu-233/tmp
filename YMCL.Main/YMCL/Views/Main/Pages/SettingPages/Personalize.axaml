@@ -1,0 +1,428 @@
+﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="YMCL.Views.Main.Pages.SettingPages.Personalize"
+    x:DataType="da:Data"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:classes="clr-namespace:YMCL.Public.Classes"
+    xmlns:colorPicker="clr-namespace:Semi.Avalonia.ColorPicker;assembly=Semi.Avalonia.ColorPicker"
+    xmlns:converter="clr-namespace:YMCL.Public.Module.Ui.Converter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:da="clr-namespace:YMCL.Public.Const"
+    xmlns:data="clr-namespace:YMCL.Public.Classes.Data"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:properties="clr-namespace:YMCL.Public.Langs"
+    xmlns:settingPages="clr-namespace:YMCL.Views.Main.Pages.SettingPages"
+    xmlns:u="https://irihi.tech/ursa"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <converter:DoubleToPercentageConverter x:Key="DoubleToPercentageConverter" />
+        <converter:SpecialControlEnableListConverter x:Key="SpecialControlEnableListConverter" />
+        <converter:ListDistinctConverter x:Key="ListDistinctConverter" />
+        <converter:BoolReversalConverter x:Key="BoolReversalConverter" />
+        <converter:EnumIndexToBoolConverter x:Key="EnumIndexToBoolConverter" />
+    </UserControl.Resources>
+    <ScrollViewer>
+        <StackPanel Margin="10,0,10,10" Spacing="10">
+            <Border
+                Background="{DynamicResource 1x}"
+                CornerRadius="{DynamicResource MainCornerRadius}"
+                Name="ColorPickerRoot"
+                Opacity="{DynamicResource MainOpacity}"
+                Padding="6.5">
+                <DockPanel>
+                    <TextBlock
+                        FontFamily="{DynamicResource Font}"
+                        FontSize="14"
+                        Margin="10,0,20,0"
+                        Name="ColorPickerLabel"
+                        Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ThemeColor}"
+                        VerticalAlignment="Center" />
+                    <ColorPicker
+                        Color="{Binding SettingEntry.AccentColor}"
+                        ColorSpectrumShape="Box"
+                        HorizontalAlignment="Stretch"
+                        Name="ColorPicker"
+                        Theme="{DynamicResource HexColorPicker}"
+                        Width="{x:Static x:Double.NaN}">
+                        <ColorPicker.Styles>
+                            <Style Selector="DropDownButton">
+                                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            </Style>
+                        </ColorPicker.Styles>
+                    </ColorPicker>
+                </DockPanel>
+            </Border>
+            <Border
+                Background="{DynamicResource 1x}"
+                CornerRadius="{DynamicResource MainCornerRadius}"
+                Opacity="{DynamicResource MainOpacity}"
+                Padding="6.5">
+                <DockPanel>
+                    <TextBlock
+                        FontFamily="{DynamicResource Font}"
+                        FontSize="14"
+                        Margin="10,0,20,0"
+                        Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Language}"
+                        VerticalAlignment="Center" />
+                    <ComboBox
+                        DockPanel.Dock="Left"
+                        FontFamily="{DynamicResource Font}"
+                        HorizontalAlignment="Stretch"
+                        ItemsSource="{Binding Langs}"
+                        SelectedItem="{Binding SettingEntry.Language}"
+                        x:Name="LanguageComboBox">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate DataType="data:Language">
+                                <TextBlock>
+                                    <Run Text="[" />
+                                    <Run Text="{Binding Code}" />
+                                    <Run Text="]" />
+                                    <Run Text="{Binding Label}" />
+                                </TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </DockPanel>
+            </Border>
+            <Border
+                Background="{DynamicResource 1x}"
+                CornerRadius="{DynamicResource MainCornerRadius}"
+                Opacity="{DynamicResource MainOpacity}"
+                Padding="6.5">
+                <DockPanel>
+                    <TextBlock
+                        FontFamily="{DynamicResource Font}"
+                        FontSize="14"
+                        Margin="10,0,20,0"
+                        Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ColorMode}"
+                        VerticalAlignment="Center" />
+                    <ComboBox
+                        DockPanel.Dock="Left"
+                        FontFamily="{DynamicResource Font}"
+                        HorizontalAlignment="Stretch"
+                        SelectedIndex="{Binding SettingEntry.Theme}"
+                        x:Name="ThemeComboBox">
+                        <ComboBox.Items>
+                            <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.FollowSystem}" />
+                            <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Light}" />
+                            <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Dark}" />
+                        </ComboBox.Items>
+                    </ComboBox>
+                </DockPanel>
+            </Border>
+            <Border
+                Background="{DynamicResource 1x}"
+                CornerRadius="{DynamicResource MainCornerRadius}"
+                Opacity="{DynamicResource MainOpacity}"
+                Padding="6.5">
+                <StackPanel Margin="0,5" Spacing="7">
+                    <DockPanel>
+                        <TextBlock
+                            FontFamily="{DynamicResource Font}"
+                            FontSize="14"
+                            Margin="10,0,20,0"
+                            Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.CustomBackground}"
+                            VerticalAlignment="Center" />
+                        <Button
+                            Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.SelectImgFile}"
+                            DockPanel.Dock="Right"
+                            IsVisible="{Binding SettingEntry.CustomBackGround, Converter={StaticResource EnumIndexToBoolConverter}, ConverterParameter=1}"
+                            Margin="5,0,0,0"
+                            Name="EditCustomBackGroundImgBtn" />
+                        <ComboBox
+                            DockPanel.Dock="Left"
+                            FontFamily="{DynamicResource Font}"
+                            HorizontalAlignment="Stretch"
+                            SelectedIndex="{Binding SettingEntry.CustomBackGround}"
+                            x:Name="CustomBackGroundImgComboBox">
+                            <ComboBox.Items>
+                                <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Default}" />
+                                <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.BackGroundImg}" />
+                                <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.AcrylicBlur}" />
+                                <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Transparent}" />
+                                <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Mica}" />
+                            </ComboBox.Items>
+                        </ComboBox>
+                    </DockPanel>
+                    <DockPanel>
+                        <DockPanel.IsVisible>
+                            <MultiBinding Converter="{StaticResource BoolReversalConverter}">
+                                <Binding
+                                    Converter="{StaticResource EnumIndexToBoolConverter}"
+                                    ConverterParameter="0"
+                                    Path="SettingEntry.CustomBackGround" />
+                            </MultiBinding>
+                        </DockPanel.IsVisible>
+                        <TextBlock
+                            FontFamily="{DynamicResource Font}"
+                            FontSize="14"
+                            Margin="10,0,20,0"
+                            Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.TranslucentBackgroundOpacity}"
+                            VerticalAlignment="Center" />
+                        <TextBlock
+                            DockPanel.Dock="Right"
+                            FontFamily="{DynamicResource Font}"
+                            FontSize="14"
+                            Margin="6.5,0,6.5,0"
+                            Text="{Binding SettingEntry.TranslucentBackgroundOpacity, Converter={StaticResource DoubleToPercentageConverter}}"
+                            TextAlignment="Center"
+                            VerticalAlignment="Center"
+                            Width="60" />
+                        <Slider
+                            Margin="0,0,0,0"
+                            Maximum="1"
+                            Minimum="0.2"
+                            Value="{Binding SettingEntry.TranslucentBackgroundOpacity}"
+                            VerticalAlignment="Center" />
+                    </DockPanel>
+                    <DockPanel>
+                        <DockPanel.IsVisible>
+                            <MultiBinding Converter="{StaticResource BoolReversalConverter}">
+                                <Binding
+                                    Converter="{StaticResource EnumIndexToBoolConverter}"
+                                    ConverterParameter="0"
+                                    Path="SettingEntry.CustomBackGround" />
+                            </MultiBinding>
+                            <!--  False  -->
+                        </DockPanel.IsVisible>
+                        <TextBlock
+                            FontFamily="{DynamicResource Font}"
+                            FontSize="14"
+                            Margin="10,0,20,0"
+                            Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.EnableTranslucentSpecialControlList}"
+                            VerticalAlignment="Center" />
+                        <u:MultiComboBox
+                            HorizontalAlignment="Stretch"
+                            Margin="0,0,0,0"
+                            Name="MultiComboBox"
+                            SelectedItems="{Binding SelectedItems}"
+                            VerticalAlignment="Center"
+                            Watermark="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.CurrentListIsEmpty}"
+                            x:DataType="settingPages:Personalize" />
+                    </DockPanel>
+                </StackPanel>
+            </Border>
+            <Border
+                Background="{DynamicResource 1x}"
+                CornerRadius="{DynamicResource MainCornerRadius}"
+                Opacity="{DynamicResource MainOpacity}"
+                Padding="6.5">
+                <StackPanel Margin="0,5" Spacing="5">
+                    <DockPanel>
+                        <TextBlock
+                            FontFamily="{DynamicResource Font}"
+                            FontSize="14"
+                            Margin="10,0,20,0"
+                            Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.CornerRadius}"
+                            VerticalAlignment="Center" />
+                        <TextBlock
+                            DockPanel.Dock="Right"
+                            FontFamily="{DynamicResource Font}"
+                            FontSize="14"
+                            Margin="6.5,0,6.5,0"
+                            Text="{Binding SettingEntry.CornerRadius}"
+                            TextAlignment="Center"
+                            VerticalAlignment="Center"
+                            Width="60" />
+                        <Slider
+                            IsSnapToTickEnabled="True"
+                            Margin="0,0,0,0"
+                            Maximum="100"
+                            Minimum="0"
+                            TickFrequency="1"
+                            Value="{Binding SettingEntry.CornerRadius}"
+                            VerticalAlignment="Center" />
+                    </DockPanel>
+                </StackPanel>
+            </Border>
+            <Border
+                Background="{DynamicResource 1x}"
+                CornerRadius="{DynamicResource MainCornerRadius}"
+                Opacity="{DynamicResource MainOpacity}"
+                Padding="6.5">
+                <DockPanel>
+                    <TextBlock
+                        FontFamily="{DynamicResource Font}"
+                        FontSize="14"
+                        Margin="10,0,20,0"
+                        Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.NoticeWay}"
+                        VerticalAlignment="Center" />
+                    <ComboBox
+                        DockPanel.Dock="Left"
+                        FontFamily="{DynamicResource Font}"
+                        HorizontalAlignment="Stretch"
+                        Name="NotificationComboBox"
+                        SelectedIndex="{Binding SettingEntry.NoticeWay}">
+                        <ComboBox.Items>
+                            <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.NotificationBubble}" />
+                            <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.NotificationCard}" />
+                        </ComboBox.Items>
+                    </ComboBox>
+                </DockPanel>
+            </Border>
+            <Border
+                Background="{DynamicResource 1x}"
+                CornerRadius="{DynamicResource MainCornerRadius}"
+                Name="LyricRoot"
+                Opacity="{DynamicResource MainOpacity}"
+                Padding="6.5">
+                <StackPanel Margin="0,5" Spacing="6">
+                    <DockPanel>
+                        <TextBlock
+                            FontFamily="{DynamicResource Font}"
+                            FontSize="14"
+                            Margin="10,0,20,0"
+                            Name="LyricColorPickerLabel"
+                            Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.DeskLyricColor}"
+                            VerticalAlignment="Center" />
+                        <ColorPicker
+                            Color="{Binding SettingEntry.DeskLyricColor}"
+                            HorizontalAlignment="Stretch"
+                            Name="LyricColorPicker"
+                            Width="{x:Static x:Double.NaN}">
+                            <ColorPicker.Styles>
+                                <Style Selector="DropDownButton">
+                                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                </Style>
+                            </ColorPicker.Styles>
+                        </ColorPicker>
+                    </DockPanel>
+                    <DockPanel>
+                        <TextBlock
+                            FontFamily="{DynamicResource Font}"
+                            FontSize="14"
+                            Margin="10,0,20,0"
+                            Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.DeskLyricAlignment}"
+                            VerticalAlignment="Center" />
+                        <ComboBox
+                            FontFamily="{DynamicResource Font}"
+                            HorizontalAlignment="Stretch"
+                            Name="LyricAlignComboBox"
+                            SelectedIndex="{Binding SettingEntry.DeskLyricAlignment}">
+                            <ComboBox.Items>
+                                <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.AlignLeft}" />
+                                <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.AlignCenter}" />
+                                <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.AlignRight}" />
+                            </ComboBox.Items>
+                        </ComboBox>
+                    </DockPanel>
+                    <DockPanel Margin="0,2,0,0">
+                        <TextBlock
+                            FontFamily="{DynamicResource Font}"
+                            FontSize="14"
+                            Margin="10,0,20,0"
+                            Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.DeskLyricSize}"
+                            VerticalAlignment="Center" />
+                        <TextBlock
+                            DockPanel.Dock="Right"
+                            FontFamily="{DynamicResource Font}"
+                            FontSize="14"
+                            Margin="6.5,0,6.5,0"
+                            Name="LyricSizeSliderText"
+                            Text="{Binding SettingEntry.DeskLyricSize}"
+                            TextAlignment="Center"
+                            VerticalAlignment="Center"
+                            Width="65" />
+                        <Slider
+                            IsSnapToTickEnabled="True"
+                            Margin="0,0,0,0"
+                            Maximum="72"
+                            Minimum="1"
+                            Name="LyricSizeSlider"
+                            TickFrequency="1"
+                            Value="{Binding SettingEntry.DeskLyricSize}"
+                            VerticalAlignment="Center" />
+                    </DockPanel>
+                </StackPanel>
+            </Border>
+            <Border
+                Background="{DynamicResource 1x}"
+                CornerRadius="{DynamicResource MainCornerRadius}"
+                Opacity="{DynamicResource MainOpacity}"
+                Padding="6.5">
+                <DockPanel>
+                    <TextBlock
+                        FontFamily="{DynamicResource Font}"
+                        FontSize="14"
+                        Margin="10,0,20,0"
+                        Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.LauncherVisibility}"
+                        VerticalAlignment="Center" />
+                    <ComboBox
+                        DockPanel.Dock="Left"
+                        FontFamily="{DynamicResource Font}"
+                        HorizontalAlignment="Stretch"
+                        SelectedIndex="{Binding SettingEntry.LauncherVisibility}"
+                        x:Name="LauncherVisibilityComboBox">
+                        <ComboBox.Items>
+                            <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.AfterLaunchKeepLauncherVisible}" />
+                            <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.AfterLaunchMakeLauncherMinimize}" />
+                            <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.AfterLaunchMinimizeAndShowWhenGameExit}" />
+                            <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.AfterLaunchHideAndShowWhenGameExit}" />
+                            <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.AfterLaunchExitLauncher}" />
+                        </ComboBox.Items>
+                    </ComboBox>
+                </DockPanel>
+            </Border>
+            <Border
+                Background="{DynamicResource 1x}"
+                CornerRadius="{DynamicResource MainCornerRadius}"
+                Opacity="{DynamicResource MainOpacity}"
+                Padding="6.5">
+                <DockPanel>
+                    <TextBlock
+                        FontFamily="{DynamicResource Font}"
+                        FontSize="14"
+                        Margin="10,0,20,0"
+                        Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.CustomHomePage}"
+                        VerticalAlignment="Center" />
+                    <Button
+                        Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Edit}"
+                        DockPanel.Dock="Right"
+                        IsVisible="{Binding SettingEntry.CustomHomePage, Converter={StaticResource EnumIndexToBoolConverter}, ConverterParameter=1}"
+                        Margin="5,0,0,0"
+                        Name="EditCustomHomePageBtn" />
+                    <Button
+                        Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Refresh}"
+                        DockPanel.Dock="Right"
+                        Margin="5,0,0,0"
+                        Name="RefreshCustomHomePageBtn">
+                        <Button.IsVisible>
+                            <MultiBinding Converter="{StaticResource BoolReversalConverter}">
+                                <Binding
+                                    Converter="{StaticResource EnumIndexToBoolConverter}"
+                                    ConverterParameter="0"
+                                    Path="SettingEntry.CustomBackGround" />
+                            </MultiBinding>
+                        </Button.IsVisible>
+                    </Button>
+                    <TextBox
+                        DockPanel.Dock="Right"
+                        FontFamily="{DynamicResource Font}"
+                        FontSize="14"
+                        IsVisible="{Binding SettingEntry.CustomHomePage, Converter={StaticResource EnumIndexToBoolConverter}, ConverterParameter=2}"
+                        Margin="5,0,0,0"
+                        MinWidth="200"
+                        Text="{Binding SettingEntry.CustomHomePageUrl}"
+                        VerticalAlignment="Center"
+                        Watermark="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.DownloadUrl}" />
+                    <ComboBox
+                        DockPanel.Dock="Left"
+                        FontFamily="{DynamicResource Font}"
+                        HorizontalAlignment="Stretch"
+                        MinWidth="140"
+                        SelectedIndex="{Binding SettingEntry.CustomHomePage}"
+                        x:Name="CustomHomePageComboBox">
+                        <ComboBox.Items>
+                            <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Off}" />
+                            <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.LocalSourceCode}" />
+                            <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.NetworkSource}" />
+                            <!-- <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.CustomHomePageWay_Presetting_JavaNews}" /> -->
+                        </ComboBox.Items>
+                    </ComboBox>
+                </DockPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
